@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Lab001</string>
+    <string name="text_textview">Hello world from \"free lib\" module!</string>
+</resources>
