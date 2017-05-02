@@ -1,4 +1,4 @@
-1. Development considerations
+#####1. Development considerations
 
 As you develop your library modules and dependent apps, be aware of the following behaviors and limitations.
 
@@ -9,7 +9,7 @@ The build tools merge resources from a library module with those of a dependent 
 If conflicts occur between multiple AAR libraries, then the resource from the library listed first in the dependencies list (toward the top of the dependencies block) is used.
 To avoid resource conflicts for common resource IDs, consider using a prefix or other consistent naming scheme that is unique to the module (or is unique across all project modules).
 
-2. Merge duplicate resources
+#####2. Merge duplicate resources
 
 By default, Gradle also merges identically named resources, such as drawables with the same name that might be in different resource folders. This behavior is not controlled by the shrinkResources property and cannot be disabled, because it is necessary to avoid errors when multiple resources match the name your code is looking up.
 
@@ -29,12 +29,12 @@ For example, if a duplicate resource appears in both your main resources and a b
 
 If identical resources appear in the same source set, Gradle cannot merge them and emits a resource merge error. This can happen if you define multiple source sets in the sourceSet property of your build.gradle file—for example if both src/main/res/ and src/main/res2/ contain identical resources.
 
-3. Installation .apk via File Manager(Total Commander)
+#####3. Installation .apk via File Manager(Total Commander)
 - add files .apk's to path-to-sdk/platforms-tools dir
 - push files to device in Android Device Monitor(ADM)
 - install .apk's on device via installed File Manager
 
-4. About differences API22 vs API23 (Android 5.1 vs 6.0)
+#####4. About differences API22 vs API23 (Android 5.1 vs 6.0)
 
 On all versions of Android, your app needs to declare both the normal and the dangerous permissions it needs in its app manifest, as described in Declaring Permissions. However, the effect of that declaration is different depending on the system version and your app's target SDK level:
 
