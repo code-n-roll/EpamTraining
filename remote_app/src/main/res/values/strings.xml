@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Task2</string>
+    <string name="remoteapp_textview">Hello from \"remote app\" module!</string>
+    <string name="label_custom_perm">My custom permission label</string>
+    <string name="descr_custom_perm">Some description about my custom permission</string>
+    <string name="send_button">Send</string>
+    <string name="destination_hint">Email destination</string>
+    <string name="subject_hint">Subject message</string>
+    <string name="body_hint">Enter your message here</string>
+    <string name="title_chooser">Share text to...</string>
+</resources>

@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">Lab001</string>
-    <string name="text_textview">Hello world from \"main app\" module!</string>
+    <string name="app_name">Task1</string>
+    <string name="text_textview">Hello world from \"app\" module!</string>
 </resources>
