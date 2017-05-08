@@ -23,6 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="com.androidlab2017.epam.task1.SecondActivity">
+        </activity>
+
+        <activity android:name="com.androidlab2017.epam.task1.ThirdActivity">
+        </activity>
     </application>
 
 </manifest>

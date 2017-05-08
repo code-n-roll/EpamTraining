@@ -1,88 +1,102 @@
 package com.androidlab2017.epam.task1;
 
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Button;
+import android.util.Log;
+import android.view.MenuItem;
 
 import com.androidlab2017.epam.lab001.R;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button mButton;
-    private final static String CUSTOM_PERMISSION = "com.androidlab2017.epam.task2.custom_permission";
-    private final static String REMOTE_PACKAGENAME = "com.androidlab2017.epam.task2";
-    private final static int ID_CUSTOM_PERMISSION = 0;
+    private final static String TAG = "MainActivityTag",
+            MAIN_FRAGMENT = "MainFragment";
+    private final static String CUR_FRAGMENT_TAG = "CUR_FRAGMENT_TAG";
+    private String mCurFragmentTag;
+
+    public void setCurFragmentTag(final String curFragmentTag){
+        mCurFragmentTag = curFragmentTag;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        mButton = (Button) findViewById(R.id.button);
-        mButton.setOnClickListener((ignored)->clickOnButton());
-
-    }
-
-    private void clickOnButton(){
-        int permissionCheck = ContextCompat.checkSelfPermission(this, CUSTOM_PERMISSION);
-        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-            // Should we show an explanation?
-            getPermissions();
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, CUSTOM_PERMISSION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                // ID_CUSTOM_PERMISSION is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
+        if (savedInstanceState != null){
+            setCurFragmentTag(savedInstanceState.getString(CUR_FRAGMENT_TAG));
         } else {
-            Intent intent = new Intent();
-            intent.setClassName(REMOTE_PACKAGENAME, REMOTE_PACKAGENAME.concat(".MainActivity"));
-            startActivity(intent);
+            setContentView(R.layout.activity_main);
+            getSupportFragmentManager().
+                    beginTransaction().
+                    replace(R.id.main_container, new MainFragment(), MAIN_FRAGMENT).
+                    commit();
+            setCurFragmentTag(MAIN_FRAGMENT);
         }
-    }
 
-    private void getPermissions(){
-        ActivityCompat.requestPermissions(this, new String[]{CUSTOM_PERMISSION},
-                ID_CUSTOM_PERMISSION);
+        Log.d(TAG,"onCreate");
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case ID_CUSTOM_PERMISSION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-                    Intent intent = new Intent();
-                    intent.setClassName(REMOTE_PACKAGENAME,
-                            REMOTE_PACKAGENAME.concat(".MainActivity"));
-                    startActivity(intent);
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return;
-            }
-
-            // other 'case' lines to check for other
-            // permissions this app might request
-        }
+        getSupportFragmentManager().putFragment(
+                outState,
+                mCurFragmentTag,
+                getSupportFragmentManager().findFragmentByTag(mCurFragmentTag)
+        );
+        outState.putString(CUR_FRAGMENT_TAG, mCurFragmentTag);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            if (!mCurFragmentTag.equals(MAIN_FRAGMENT)){
+                getSupportFragmentManager().
+                        beginTransaction().
+                        replace(R.id.main_container, new MainFragment(), MAIN_FRAGMENT).
+                        commit();
+                setCurFragmentTag(MAIN_FRAGMENT);
+            }
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onStop");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "onDestroy");
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+    }
+
 
 }
