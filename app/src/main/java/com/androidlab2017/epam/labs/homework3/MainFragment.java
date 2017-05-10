@@ -1,7 +1,8 @@
-package com.androidlab2017.epam.task1;
+package com.androidlab2017.epam.labs.homework3;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +14,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.androidlab2017.epam.lab001.R;
+import com.androidlab2017.epam.labs.homework4.MainActivity;
 
 /**
  * Created by roman on 8.5.17.
@@ -26,6 +29,7 @@ public class MainFragment extends Fragment{
     private Button mButtonToSecondActivity;
     private Button mCloseMainActivity;
     private Button mButtonToColorFragment;
+    private TextView mLinkToTextView;
     private final static String CUSTOM_PERMISSION = "com.androidlab2017.epam.task2.custom_permission";
     private final static String REMOTE_PACKAGENAME = "com.androidlab2017.epam.task2";
     private final static int ID_CUSTOM_PERMISSION = 0;
@@ -51,19 +55,28 @@ public class MainFragment extends Fragment{
             activity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             activity.getSupportActionBar().setDisplayShowHomeEnabled(false);
 
-            mButton = (Button) getActivity().findViewById(R.id.button);
+
+            mLinkToTextView = (TextView) activity.findViewById(R.id.id_link_to_textview);
+            mLinkToTextView.setOnClickListener((ignored)->clickOnLink());
+
+            mButton = (Button) activity.findViewById(R.id.button);
             mButton.setOnClickListener((ignored) -> clickOnButton());
 
-            mButtonToColorFragment = (Button) getActivity().findViewById(R.id.button_to_color_fragment);
+            mButtonToColorFragment = (Button) activity.findViewById(R.id.button_to_color_fragment);
             mButtonToColorFragment.setOnClickListener((ignored) -> clickOnButtonToColorFragment());
 
-            mButtonToSecondActivity = (Button) getActivity().findViewById(R.id.button_to_second_activity);
+            mButtonToSecondActivity = (Button) activity.findViewById(R.id.button_to_second_activity);
             mButtonToSecondActivity.setOnClickListener((ignored) -> clickOnButtonToSecondActivity());
 
-            mCloseMainActivity = (Button) getActivity().findViewById(R.id.button_close_main_activity);
+            mCloseMainActivity = (Button) activity.findViewById(R.id.button_close_main_activity);
             mCloseMainActivity.setOnClickListener((ignored) -> clickOnCloseMainActivity());
 
         }
+    }
+
+    private void clickOnLink(){
+        startActivity(new Intent(Intent.ACTION_VIEW,
+                Uri.parse("http://play.google.com/store/search/?q="+"opera")));
     }
 
     private void clickOnButtonToColorFragment(){

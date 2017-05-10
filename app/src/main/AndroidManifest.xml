@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.androidlab2017.epam.task1.MainActivity">
+        <activity android:name="com.androidlab2017.epam.labs.homework4.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -24,10 +24,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.androidlab2017.epam.task1.SecondActivity">
+        <activity android:name="com.androidlab2017.epam.labs.homework3.SecondActivity">
         </activity>
 
-        <activity android:name="com.androidlab2017.epam.task1.ThirdActivity">
+        <activity android:name="com.androidlab2017.epam.labs.homework3.ThirdActivity">
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.androidlab2017.epam.task1;
+package com.androidlab2017.epam.labs.homework3;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
