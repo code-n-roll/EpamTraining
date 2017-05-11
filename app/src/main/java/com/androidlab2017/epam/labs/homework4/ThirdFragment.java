@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.androidlab2017.epam.lab001.R;
+import com.androidlab2017.epam.labs.MainActivity;
 
 /**
  * Created by roman on 10.5.17.

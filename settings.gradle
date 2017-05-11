@@ -1,1 +1,1 @@
-include ':lib', ':app', ':remote_app'
+include ':lib', ':app', ':remote_app', ':task5'

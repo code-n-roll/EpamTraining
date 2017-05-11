@@ -17,7 +17,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.androidlab2017.epam.lab001.R;
-import com.androidlab2017.epam.labs.homework4.MainActivity;
+import com.androidlab2017.epam.labs.MainActivity;
 
 /**
  * Created by roman on 8.5.17.

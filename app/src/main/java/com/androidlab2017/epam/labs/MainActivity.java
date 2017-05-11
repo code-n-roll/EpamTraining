@@ -1,4 +1,4 @@
-package com.androidlab2017.epam.labs.homework4;
+package com.androidlab2017.epam.labs;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,13 +9,18 @@ import android.view.MenuItem;
 
 import com.androidlab2017.epam.lab001.R;
 import com.androidlab2017.epam.labs.homework3.MainFragment;
+import com.androidlab2017.epam.labs.homework4.FirstFragment;
+import com.androidlab2017.epam.labs.homework4.OnChangeBackgroundListener;
+import com.androidlab2017.epam.labs.homework4.OnChangeFragmentListener;
+import com.androidlab2017.epam.labs.homework4.SecondFragment;
+import com.androidlab2017.epam.labs.homework4.ThirdFragment;
 
 import java.util.Random;
 
 
 
 public class MainActivity extends AppCompatActivity implements
-        OnChangeBackgroundListener, OnChangeFragmentListener{
+        OnChangeBackgroundListener, OnChangeFragmentListener {
     private final static String TAG = "MainActivityTag";
     private final static String CUR_FRAGMENT_TAG = "CUR_FRAGMENT_TAG",
                         COLOR_SECOND_TAG = "COLOR_SECOND_TAG",
