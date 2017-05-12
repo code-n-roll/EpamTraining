@@ -3,8 +3,8 @@ package com.androidlab2017.epam.task5;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.Gravity;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -14,94 +14,61 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity{
     private ImageButton mButtonCotrolAnimation;
     private TextView mTextViewContent;
-    private Animation mToRightAnimation;
-    private Animation mToLeftAnimation;
-    private Animation mToEndAnimation;
-    private Animation mToStartAnimation;
-    private int counter = 0;
-    private static final int FROM_LEFT = 0,
-                            FROM_START = 1,
-                            FROM_RIGHT = 2,
-                            FROM_END = 3;
-    private static final String XTAG = "XTAG",
-                                YTAG = "YTAG",
-                                CONTER_TAG = "COUNTER_TAG";
+
+    private static final String ID_STATE_TAG = MainActivity.class.getName()+"_COUNTER_TAG";
+    private static final String OLD_GRAVITY_TAG = MainActivity.class.getName()+"_OLD_GRAVITY";
+    private static final int FROM_END = 3;
+    private int mIdState = 0;
+    private int mCurGravity;
+
+    private static int[] gravityStates = {
+            Gravity.START|Gravity.TOP,
+            Gravity.END|Gravity.TOP,
+            Gravity.END|Gravity.BOTTOM,
+            Gravity.START|Gravity.BOTTOM
+    };
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mToRightAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_to_right);
-        mToLeftAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_to_left);
-        mToStartAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_to_start);
-        mToEndAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_to_end);
-
-
-        mToRightAnimation.setFillAfter(true);
-        mToLeftAnimation.setFillAfter(true);
-        mToStartAnimation.setFillAfter(true);
-        mToEndAnimation.setFillAfter(true);
-
-
-
-        mToRightAnimation.setAnimationListener(mFixPositionListener);
-
 
         mButtonCotrolAnimation = (ImageButton) findViewById(R.id.id_imagebutton_control_anim);
         mTextViewContent = (TextView) findViewById(R.id.id_textview_content);
 
+
         if (savedInstanceState != null){
-            mTextViewContent.setX(savedInstanceState.getFloat(XTAG));
-            mTextViewContent.setY(savedInstanceState.getFloat(YTAG));
-            counter = savedInstanceState.getInt(CONTER_TAG);
+            changeGravityOnView(mTextViewContent, savedInstanceState.getInt(OLD_GRAVITY_TAG));
+            mIdState = savedInstanceState.getInt(ID_STATE_TAG);
+            mCurGravity = gravityStates[mIdState];
         }
 
         Picasso.with(this).load("https://galagram.com/wp-content/uploads/2017/03/" +
                 "android-8-logo-png-transparent-logo-of-android-8.png").into(mButtonCotrolAnimation);
 
-        mButtonCotrolAnimation.setOnLongClickListener((ignored)->longClickOnButtonControlAnimation());
-
+        mButtonCotrolAnimation.setOnLongClickListener((ignored)-> controlGravityListener());
     }
 
-    private Animation.AnimationListener mFixPositionListener = new Animation.AnimationListener() {
-        @Override
-        public void onAnimationStart(Animation animation) {
+    private void changeGravityOnView(TextView textView, int newGravity){
+        FrameLayout.LayoutParams lp = ((FrameLayout.LayoutParams) textView.getLayoutParams());
+        lp.gravity = newGravity;
+        textView.setLayoutParams(lp);
+    }
 
+    private void changeGravityValue(){
+        if (mIdState != FROM_END){
+            mIdState++;
+        } else {
+            mIdState = 0;
         }
+        mCurGravity = gravityStates[mIdState];
+    }
 
-        @Override
-        public void onAnimationEnd(Animation animation) {
-//            mTextViewContent.layout(100,0,
-//                    mTextViewContent.getWidth(),
-//                    mTextViewContent.getHeight());
-        }
-
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-    };
-
-    private boolean longClickOnButtonControlAnimation(){
-        switch (counter){
-            case FROM_LEFT:
-                mTextViewContent.startAnimation(mToRightAnimation);
-                counter++;
-                break;
-            case FROM_START:
-                mTextViewContent.startAnimation(mToEndAnimation);
-                counter++;
-                break;
-            case FROM_RIGHT:
-                mTextViewContent.startAnimation(mToLeftAnimation);
-                counter++;
-                break;
-            case FROM_END:
-                mTextViewContent.startAnimation(mToStartAnimation);
-                counter = 0;
-                break;
-        }
+    private boolean controlGravityListener(){
+        changeGravityValue();
+        changeGravityOnView(mTextViewContent, mCurGravity);
         return true;
     }
 
@@ -109,8 +76,7 @@ public class MainActivity extends AppCompatActivity{
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putFloat(XTAG, mTextViewContent.getX());
-        outState.putFloat(YTAG, mTextViewContent.getY());
-        outState.putInt(CONTER_TAG, counter);
+        outState.putInt(OLD_GRAVITY_TAG, mCurGravity);
+        outState.putInt(ID_STATE_TAG, mIdState);
     }
 }
