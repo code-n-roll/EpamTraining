@@ -4,13 +4,18 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+import com.squareup.picasso.Picasso;
+
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        LinearLayout headerContainer = (LinearLayout) navigationView.getHeaderView(0);
+        ImageView imageView = (ImageView) headerContainer.findViewById(R.id.id_task5_image_view);
+        Picasso.with(this).load("https://s-media-cache-ak0.pinimg.com/736x/7d/01/73/7d01733f266952973b88e6fb21cc7e84.jpg").into(imageView);
     }
 
     @Override
@@ -47,13 +56,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_play:
                 getSupportFragmentManager().
                         beginTransaction().
-                        replace(R.id.id_container_fragments,new MuteFragment()).
+                        replace(R.id.id_container_fragments,new SecondFragment()).
                         commit();
                 break;
             case R.id.nav_mute:
                 getSupportFragmentManager().
                         beginTransaction().
-                        replace(R.id.id_container_fragments,new PlayFragment()).
+                        replace(R.id.id_container_fragments,new ThirdFragment()).
                         commit();
                 break;
         }

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
  * Created by roman on 12.5.17.
  */
 
-public class PlayFragment extends Fragment {
+public class SecondFragment extends Fragment {
     private View mView;
 
 
@@ -20,7 +20,7 @@ public class PlayFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_play, container, false);
+        mView = inflater.inflate(R.layout.fragment_second, container, false);
         return mView;
     }
 }
