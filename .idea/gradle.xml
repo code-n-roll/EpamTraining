@@ -11,7 +11,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/remote_app" />
+            <option value="$PROJECT_DIR$/task4" />
             <option value="$PROJECT_DIR$/task5" />
+            <option value="$PROJECT_DIR$/task5_template" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

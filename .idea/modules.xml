@@ -6,7 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/lab001.iml" filepath="$PROJECT_DIR$/lab001.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/remote_app/remote_app.iml" filepath="$PROJECT_DIR$/remote_app/remote_app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/task4/task4.iml" filepath="$PROJECT_DIR$/task4/task4.iml" />
       <module fileurl="file://$PROJECT_DIR$/task5/task5.iml" filepath="$PROJECT_DIR$/task5/task5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/task5_template/task5_template.iml" filepath="$PROJECT_DIR$/task5_template/task5_template.iml" />
     </modules>
   </component>
 </project>

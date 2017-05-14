@@ -1,4 +1,8 @@
 <resources>
-    <string name="app_name">Task5</string>
-    <string name="hello_world_text">Hello world!</string>
+    <string name="app_name">NontemplateClasswork6</string>
+    <string name="navigation_drawer_open">Navigation drawer open</string>
+    <string name="navigation_drawer_close">Navigation drawer close</string>
+    <string name="custom_view_name">Custom View</string>
+    <string name="second_menu_item_name">Second Item</string>
+    <string name="third_menu_item_name">Third Item</string>
 </resources>
