@@ -1,4 +1,4 @@
-package com.androidlab2017.epam;
+package com.androidlab2017.epam.third_fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.androidlab2017.epam.R;
+
 /**
  * Created by roman on 12.5.17.
  */
 
-public class SecondFragment extends Fragment {
+public class ThirdFragment extends Fragment {
     private View mView;
 
 
@@ -20,7 +22,7 @@ public class SecondFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_second, container, false);
+        mView = inflater.inflate(R.layout.fragment_third, container, false);
         return mView;
     }
 }

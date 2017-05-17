@@ -1,4 +1,4 @@
-package com.androidlab2017.epam;
+package com.androidlab2017.epam.custom_fragment;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,6 +13,8 @@ import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.androidlab2017.epam.R;
 
 /**
  * Created by roman on 14.5.17.

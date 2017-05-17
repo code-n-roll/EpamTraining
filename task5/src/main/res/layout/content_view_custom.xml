@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto">
-    <com.androidlab2017.epam.SmileyView
+    <com.androidlab2017.epam.custom_fragment.SmileyView
         android:id="@+id/smiley_view"
         android:layout_height="match_parent"
         android:layout_width="match_parent"

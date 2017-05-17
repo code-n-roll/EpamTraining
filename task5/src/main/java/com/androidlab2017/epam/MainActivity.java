@@ -11,6 +11,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.androidlab2017.epam.custom_fragment.CustomViewFragment;
+import com.androidlab2017.epam.second_fragment.SecondFragment;
+import com.androidlab2017.epam.third_fragment.ThirdFragment;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity
