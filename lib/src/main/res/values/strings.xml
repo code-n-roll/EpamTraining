@@ -1,5 +1,0 @@
-<resources >
-    <string name="app_name">DataSharingLibrary</string>
-    <string name="lib_text_textview">Hello world from \"main lib\" module!</string>
-</resources>
-

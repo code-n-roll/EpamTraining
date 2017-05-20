@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">Task1</string>
-    <string name="text_textview">Hello world from \"app\" module!</string>
-    <string name="second_activity">Hello from second activity!</string>
-    <string name="third_activity">Hello from third activity!</string>
-</resources>
