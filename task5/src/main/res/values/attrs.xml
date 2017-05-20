@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SmileyView">
+        <attr name="eyesColor" format="color"/>
+        <attr name="mouthColor" format="color"/>
+        <attr name="faceColor" format="color"/>
+        <attr name="emotion" format="enum">
+            <enum name="funny" value="0"/>
+            <enum name="sad" value="1"/>
+        </attr>
+    </declare-styleable>
+</resources>

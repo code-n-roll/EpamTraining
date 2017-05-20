@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Task5</string>
+    <string name="navigation_drawer_open">Navigation drawer open</string>
+    <string name="navigation_drawer_close">Navigation drawer close</string>
+    <string name="custom_view_name">Custom View</string>
+    <string name="second_menu_item_name">Recycler View</string>
+    <string name="third_menu_item_name">Third Item</string>
+    <string name="background_image_path">https://s-media-cache-ak0.pinimg.com/736x/7d/01/73/7d01733f266952973b88e6fb21cc7e84.jpg</string>
+</resources>
