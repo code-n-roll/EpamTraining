@@ -14,14 +14,11 @@ import com.androidlab2017.epam.R;
  */
 
 public class CustomViewFragment extends Fragment {
-    private View mView;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_custom_view, container, false);
-        return mView;
+        return inflater.inflate(R.layout.fragment_custom_view, container, false);
     }
 }

@@ -21,6 +21,11 @@ import com.androidlab2017.epam.R;
  */
 
 public class SmileyView extends View {
+    private final static int FUNNY = 0;
+    private final static int SAD = 1;
+    private final static String SUPER_STATE_TAG = "superState";
+    private final static String EMOTION_TAG = "emotion";
+
     private Paint mFacePaint;
     private Paint mEyesPaint;
     private Paint mMouthPaint;
@@ -29,27 +34,31 @@ public class SmileyView extends View {
     private int mMouthColor;
     private int mFaceColor;
     private int mEmotion;
+
     private float mCenterX;
     private float mCenterY;
     private float mRadius;
     private float mEyeRadius;
     private float mEyeOffsetY;
     private float mEyeOffsetX;
-    private RectF mArcBoundsFunny = new RectF();
-    private RectF mArcBoundsSad = new RectF();
-    private final static int FUNNY = 0,
-                             SAD = 1;
-    private final static String SUPER_STATE_TAG = "superState",
-                                EMOTION_TAG = "emotion";
+
+    private RectF mArcBoundsFunny;
+    private RectF mArcBoundsSad;
     private GestureDetectorCompat mGestureDetector;
 
 
     public SmileyView(Context context) {
-        this(context, null);
+        super(context);
+        initAttrs(context, null);
+        initPaints();
+        initGestureDetector(context);
     }
 
     public SmileyView(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        super(context, attrs);
+        initAttrs(context, attrs);
+        initPaints();
+        initGestureDetector(context);
     }
 
     public SmileyView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -76,7 +85,6 @@ public class SmileyView extends View {
         public boolean onSingleTapUp(MotionEvent e) {
             changeEmotion();
             invalidate();
-            requestLayout();
             return super.onSingleTapUp(e);
         }
     };
@@ -105,7 +113,7 @@ public class SmileyView extends View {
             mMouthColor = a.getColor(R.styleable.SmileyView_mouthColor,
                     ContextCompat.getColor(context, android.R.color.black));
             mFaceColor = a.getColor(R.styleable.SmileyView_faceColor,
-                    ContextCompat.getColor(context, android.R.color.white));
+                    ContextCompat.getColor(context, android.R.color.holo_green_light));
             mEmotion = a.getInt(R.styleable.SmileyView_emotion, 0);
         } finally {
             a.recycle();
@@ -113,6 +121,9 @@ public class SmileyView extends View {
     }
 
     private void initPaints() {
+        mArcBoundsFunny = new RectF();
+        mArcBoundsSad = new RectF();
+
         mFacePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mFacePaint.setStyle(Paint.Style.FILL);
         mFacePaint.setColor(mFaceColor);
@@ -142,11 +153,11 @@ public class SmileyView extends View {
         mCenterX = w / 2f;
         mCenterY = h / 2f;
         mRadius = Math.min(w, h) / 2f;
+        initSizes();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-        initSizes();
         // draw face
         canvas.drawCircle(mCenterX, mCenterY, mRadius, mFacePaint);
         // draw eyes
@@ -192,15 +203,9 @@ public class SmileyView extends View {
         mEyeOffsetX = mRadius / 3f;
         //mouth params
         float mMouthInset = mRadius / 3f;
-        switch (mEmotion){
-            case FUNNY:
-                mArcBoundsFunny.set(mMouthInset, mMouthInset,
-                        mRadius * 2 - mMouthInset, mRadius * 2 - mMouthInset);
-                break;
-            case SAD:
-                mArcBoundsSad.set(mMouthInset, mRadius * 1.5f - mMouthInset,
-                        mRadius * 2 - mMouthInset, mRadius * 3 - mMouthInset);
-                break;
-        }
+        mArcBoundsFunny.set(mMouthInset, mMouthInset,
+                mRadius * 2 - mMouthInset, mRadius * 2 - mMouthInset);
+        mArcBoundsSad.set(mMouthInset, mRadius * 1.5f - mMouthInset,
+                mRadius * 2 - mMouthInset, mRadius * 3 - mMouthInset);
     }
 }

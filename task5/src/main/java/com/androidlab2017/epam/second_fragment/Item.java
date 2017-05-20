@@ -5,8 +5,8 @@ package com.androidlab2017.epam.second_fragment;
  */
 
 public class Item {
-    private String mContent;
-    private String mImageURL;
+    private final String mContent;
+    private final String mImageURL;
 
     public Item(String content, String imageURL){
         mContent = content;
@@ -17,15 +17,7 @@ public class Item {
         return mContent;
     }
 
-    public void setContent(String content) {
-        mContent = content;
-    }
-
     public String getImageURL() {
         return mImageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        mImageURL = imageURL;
     }
 }
