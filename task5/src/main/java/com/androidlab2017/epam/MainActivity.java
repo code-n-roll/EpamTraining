@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
         initNavigationView();
     }
 
+    
     private void findViewsById(){
         mDrawer = (DrawerLayout)findViewById(R.id.drawer_layout);
     }
