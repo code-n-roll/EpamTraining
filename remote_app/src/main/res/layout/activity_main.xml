@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+
+    <EditText
+        android:id="@+id/destination_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/destination_hint"
+        android:inputType="textEmailAddress"
+        />
+    <EditText
+        android:id="@+id/subject_edittext"
+        android:layout_below="@id/destination_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/subject_hint"
+        />
+
+    <EditText
+        android:id="@+id/body_message"
+        android:layout_below="@id/subject_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:gravity="top|start"
+        android:hint="@string/body_hint"
+        android:inputType="text"
+        />
+    <Button
+        android:id="@+id/send_button"
+        android:layout_below="@id/body_message"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="@string/send_button"
+        />
+</RelativeLayout>
+
+<!--<TextView-->
+<!--android:layout_width="wrap_content"-->
+<!--android:layout_height="wrap_content"-->
+<!--android:text="@string/remoteapp_textview"/>-->
