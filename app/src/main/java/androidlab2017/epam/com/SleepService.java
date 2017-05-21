@@ -29,7 +29,6 @@ public class SleepService extends Service {
         Log.d(LOG_TAG, "onCreate");
         super.onCreate();
     }
-
     
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
