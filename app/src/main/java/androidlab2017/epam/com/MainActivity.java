@@ -1,5 +1,6 @@
 package androidlab2017.epam.com;
 
+import android.app.AlarmManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,12 @@ public class MainActivity extends AppCompatActivity {
     private AlarmItemListAdapter mAlarmItemsAdapter;
     private SimpleExpandableListAdapter mSimpleExpanListAdapter;
     private ExpandableListView mExpandableListView;
+    private AlarmManager mAlarmManager;
+
+    public AlarmManager getAlarmManager() {
+        return mAlarmManager;
+    }
+
 
     public AlarmItemListAdapter getAlarmItemsAdapter() {
         return mAlarmItemsAdapter;
@@ -38,13 +45,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show());
 
         mAlarmItemsRecycler = (RecyclerView) findViewById(R.id.recycler_view_alarm_items);
         mAlarmItems = new ArrayList<>();
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         mAlarmItemsRecycler.setLayoutManager(layoutManager);
         mAlarmItemsRecycler.setAdapter(mAlarmItemsAdapter);
 
-
+        mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
 
 
     }

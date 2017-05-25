@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TimePicker;
 
 /**
  * Created by roman on 25.5.17.
@@ -16,6 +17,7 @@ public class TimePickerDialogFragment extends DialogFragment {
     private Button mButtonOk;
     private Button mButtonCancel;
     private View mView;
+    private TimePicker mTimePicker;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +37,8 @@ public class TimePickerDialogFragment extends DialogFragment {
         super.onViewCreated(view, savedInstanceState);
 
         mView = view;
+        mTimePicker = (TimePicker) view.findViewById(R.id.timePicker);
+        mTimePicker.setIs24HourView(true);
         mButtonCancel = (Button) view.findViewById(R.id.button_cancel_time_picker);
         mButtonOk = (Button) view.findViewById(R.id.button_ok_time_picker);
 
@@ -43,8 +47,11 @@ public class TimePickerDialogFragment extends DialogFragment {
     }
 
     private void clickOnOkButton(){
+        int hour = mTimePicker.getHour();
+        int minute = mTimePicker.getMinute();
         MainActivity activity = (MainActivity) getContext();
-        activity.getAlarmItemsAdapter().getViewHolder().onClickOkButton();
+        activity.getAlarmItemsAdapter().getViewHolder().onClickOkButton(hour, minute);
+        dismiss();
     }
 
     private void clickOnCancelButton(){
@@ -52,6 +59,6 @@ public class TimePickerDialogFragment extends DialogFragment {
     }
 
     interface OnClickOkButtonListener {
-        void onClickOkButton();
+        void onClickOkButton(int hour, int minute);
     }
 }

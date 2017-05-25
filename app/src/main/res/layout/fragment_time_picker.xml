@@ -11,8 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:numbersTextColor="@android:color/white"
+        android:numbersInnerTextColor="@android:color/white"
         android:numbersBackgroundColor="@android:color/black"
         android:headerBackground="@android:color/black"
+        android:timePickerMode="clock"
         />
     <LinearLayout
         android:layout_below="@id/timePicker"
