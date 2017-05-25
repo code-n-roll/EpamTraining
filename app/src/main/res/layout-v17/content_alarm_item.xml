@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:background="@color/colorPrimaryDark"
+              android:padding="20dp">
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <TextClock
+            android:id="@+id/clock_content_alarm_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:textColor="@android:color/white"/>
+
+        <Switch
+            android:id="@+id/switch_content_alarm_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:text=""/>
+    </RelativeLayout>
+
+    <include android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         layout="@layout/content_expanded_view"/>
+</LinearLayout>
+
+
+<!--<ExpandableListView
+        android:id="@+id/expand_list_view_content_alarm_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/switch_content_alarm_item"/>-->
