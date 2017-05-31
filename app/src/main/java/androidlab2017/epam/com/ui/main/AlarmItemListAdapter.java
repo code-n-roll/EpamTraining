@@ -1,8 +1,12 @@
-package androidlab2017.epam.com;
+package androidlab2017.epam.com.ui.main;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
@@ -10,15 +14,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ExpandableListView;
 import android.widget.Switch;
-import android.widget.TextClock;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+
+import androidlab2017.epam.com.receiver.AlarmReceiver;
+import androidlab2017.epam.com.R;
+import androidlab2017.epam.com.service.AlarmService;
+import androidlab2017.epam.com.ui.ringtone_list.RingtoneListActivity;
+import androidlab2017.epam.com.data.AlarmItem;
 
 /**
  * Created by roman on 22.5.17.
@@ -27,14 +39,17 @@ import java.util.Locale;
 public class AlarmItemListAdapter extends
         RecyclerView.Adapter<AlarmItemListAdapter.ViewHolder> {
     private static String LOG_TAG = "myLogs";
+    private static final int PICK_RINGTONE_REQUEST = 1;
+
     private ArrayList<AlarmItem> mAlarmItems;
     private ViewHolder mViewHolder;
-    private TextClock mCurTextClock;
+    private TextView mCurTimeAlarm;
     private AlarmManager mAlarmManager;
     private MainActivity mMainActivity;
+    private Button mCurChooseRingtone;
 
-    public TextClock getCurTextClock() {
-        return mCurTextClock;
+    public TextView getCurTimeAlarm() {
+        return mCurTimeAlarm;
     }
 
 
@@ -72,7 +87,7 @@ public class AlarmItemListAdapter extends
 
     public class ViewHolder extends RecyclerView.ViewHolder
             implements TimePickerDialogFragment.OnClickOkButtonListener {
-        private TextClock mTextClock;
+        private TextView mTimeAlarm;
         private Switch mSwitch;
         private ExpandableListView mExpandableListView;
         private PendingIntent mPendingIntent1;
@@ -80,30 +95,44 @@ public class AlarmItemListAdapter extends
         private PendingIntent mPendingIntent;
         private View mView;
         private CheckBox mRepeatCheckBox;
+        private Button mChooseRingtone;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             mView = itemView;
-            mTextClock = (TextClock) itemView.findViewById(R.id.clock_content_alarm_item);
+            mTimeAlarm = (TextView) itemView.findViewById(R.id.clock_content_alarm_item);
             mSwitch = (Switch) itemView.findViewById(R.id.switch_content_alarm_item);
             mRepeatCheckBox = (CheckBox) itemView.findViewById(R.id.repeat_checkbox_exp_view);
 //            mExpandableListView = (ExpandableListView)
 //                    itemView.findViewById(R.id.expand_list_view_content_alarm_item);
+            mChooseRingtone = (Button) itemView.findViewById(R.id.name_alarm_ringtone);
 
-            mTextClock.setOnClickListener((view)->clickOnTextClock(view));
+            mChooseRingtone.setOnClickListener((view)->clickOnChooseRingtoneButton(view));
+            mTimeAlarm.setOnClickListener((view)->clickOnTextClock(view));
 
-            mSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked){
-                        createAddAlarm();
+            mSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                Context context = itemView.getContext();
+                if (isChecked){
+                    createAndAddAlarm();
+                    startAlarmService(context);
 //                        showSnackbar();
-                    } else {
-                        removeAlarm();
-                    }
+                } else {
+                    removeAlarm();
+                    stopAlarmService(context);
                 }
             });
+        }
+
+        private void clickOnChooseRingtoneButton(View view){
+            mCurChooseRingtone = (Button) view;
+            Intent pickRingtoneIntent = new Intent(view.getContext(), RingtoneListActivity.class);
+            ((MainActivity)view.getContext()).
+                    startActivityForResult(pickRingtoneIntent, PICK_RINGTONE_REQUEST);
+        }
+
+        public void setTextChooseRingtone(String text){
+            mCurChooseRingtone.setText(text);
         }
 
         private void showSnackbar(String info){
@@ -123,7 +152,7 @@ public class AlarmItemListAdapter extends
         }
 
         private long getMilliFromFormat24Time(){
-            String timeString = mTextClock.getFormat24Hour().toString();
+            String timeString = mTimeAlarm.getText().toString();
             String[] hourMinute = timeString.split(":");
             long hour = Long.parseLong(hourMinute[0]);
             long minute = Long.parseLong(hourMinute[1]);
@@ -144,8 +173,41 @@ public class AlarmItemListAdapter extends
             return (millisHour + millisMinute) - sinceMidnight ;
         }
 
-        private void createAddAlarm(){
-            Intent intent = createIntent("alarm action","alarm extra");
+        private void startAlarmService(Context context){
+            Intent serviceIntent = new Intent(context, AlarmService.class);
+            serviceIntent.putExtra("ringtone_uri", findRingtone(mChooseRingtone.getText().toString()));
+            serviceIntent.putExtra("data_notification", mTimeAlarm.getText().toString());
+            context.startService(serviceIntent);
+        }
+
+        private void stopAlarmService(Context context){
+            Intent intent = new Intent(context, AlarmService.class);
+            context.stopService(intent);
+        }
+
+        private String findRingtone(String searchedTitle){
+            RingtoneManager manager = new RingtoneManager(mView.getContext());
+            manager.setType(RingtoneManager.TYPE_RINGTONE);
+            Cursor cursor = manager.getCursor();
+
+            String ringtoneTitle;
+            Uri ringtoneUri = Uri.EMPTY;
+            while (cursor.moveToNext()) {
+                ringtoneTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
+                if (ringtoneTitle.equals(searchedTitle)){
+                    ringtoneUri = manager.getRingtoneUri(cursor.getPosition());
+                    break;
+                }
+            }
+
+            return ringtoneUri.toString();
+        }
+
+        private void createAndAddAlarm(){
+//            Intent intent = createIntent("alarm action","alarm extra");
+            Intent intent = new Intent(mMainActivity, AlarmReceiver.class);
+            intent.putExtra("ringtone_uri", findRingtone(mChooseRingtone.getText().toString()));
+            intent.putExtra("data_notification", mTimeAlarm.getText().toString());
             mPendingIntent = PendingIntent.getBroadcast(mMainActivity, 0, intent, 0);
 
 
@@ -175,20 +237,20 @@ public class AlarmItemListAdapter extends
         }
 
         public void bind(final AlarmItem alarmItem){
-            mTextClock.setFormat24Hour("12:50");
+            mTimeAlarm.setText("12:50");
         }
 
         @Override
         public void onClickOkButton(int hour, int minute) {
-            TextClock textClock = getCurTextClock();
-            textClock.setFormat24Hour(
+            TextView timeAlarm = getCurTimeAlarm();
+            timeAlarm.setText(
                     String.format(Locale.getDefault(), "%2d:%2d", hour, minute).replace(' ', '0')
             );
         }
     }
 
     private void clickOnTextClock(View view){
-        mCurTextClock = (TextClock) view;
+        mCurTimeAlarm = (TextView) view;
         TimePickerDialogFragment tpDialog = new TimePickerDialogFragment();
         MainActivity activity = (MainActivity)view.getContext();
 

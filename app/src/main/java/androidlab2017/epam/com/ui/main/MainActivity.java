@@ -1,6 +1,7 @@
-package androidlab2017.epam.com;
+package androidlab2017.epam.com.ui.main;
 
 import android.app.AlarmManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,23 +9,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
+import androidlab2017.epam.com.ui.main.AlarmItemListAdapter;
+import androidlab2017.epam.com.R;
+import androidlab2017.epam.com.data.AlarmItem;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int PICK_RINGTONE_REQUEST = 1;
+
     private RecyclerView mAlarmItemsRecycler;
     private ArrayList<AlarmItem> mAlarmItems;
     private AlarmItemListAdapter mAlarmItemsAdapter;
     private SimpleExpandableListAdapter mSimpleExpanListAdapter;
     private ExpandableListView mExpandableListView;
     private AlarmManager mAlarmManager;
+    private Button mChooseRingtone;
 
     public AlarmManager getAlarmManager() {
         return mAlarmManager;
@@ -36,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PICK_RINGTONE_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                mAlarmItemsAdapter.getViewHolder().setTextChooseRingtone(
+                        data.getStringExtra("ringtone_title"));
+            }
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +72,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         mAlarmItemsAdapter = new AlarmItemListAdapter(mAlarmItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mAlarmItemsRecycler.setLayoutManager(layoutManager);
         mAlarmItemsRecycler.setAdapter(mAlarmItemsAdapter);
 
         mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

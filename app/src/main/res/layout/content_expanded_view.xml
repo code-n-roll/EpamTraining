@@ -12,23 +12,70 @@
         android:text="@string/repeat"
         android:textColor="@android:color/white"
         app:buttonTint="@android:color/white"/>
-    <RelativeLayout
-        android:id="@+id/container_bell_vibrate"
+
+    <LinearLayout
+        android:id="@+id/days_of_week"
         android:layout_below="@id/repeat_checkbox_exp_view"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <ToggleButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textOff="@string/M"
+            android:textOn="@string/M"
+            />
+        <ToggleButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textOff="@string/T"
+            android:textOn="@string/T"/>
+        <ToggleButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textOff="@string/W"
+            android:textOn="@string/W"/>
+        <ToggleButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textOff="@string/T"
+            android:textOn="@string/T"/>
+        <ToggleButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textOff="@string/F"
+            android:textOn="@string/F"/>
+        <ToggleButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textOff="@string/S"
+            android:textOn="@string/S"/>
+        <ToggleButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:textOff="@string/S"
+            android:textOn="@string/S"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/container_bell_vibrate"
+        android:layout_below="@id/days_of_week"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
+        <Button
             android:layout_toLeftOf="@+id/vibrate_checkbox"
             android:layout_toStartOf="@+id/vibrate_checkbox"
-            android:id="@+id/name_alarm_rington"
+            android:id="@+id/name_alarm_ringtone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/test"
+            android:text="choose ringtone"
             android:gravity="center_vertical"
             android:layout_gravity="start"
             android:textColor="@android:color/white"
             android:drawableStart="@android:drawable/ic_menu_save"
-            android:drawableLeft="@android:drawable/ic_menu_save"/>
+            android:drawableLeft="@android:drawable/ic_menu_save"
+            android:background="@android:color/transparent"/>
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/vibrate_checkbox"
             android:layout_width="wrap_content"

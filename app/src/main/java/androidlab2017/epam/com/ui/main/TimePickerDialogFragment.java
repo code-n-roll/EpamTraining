@@ -1,4 +1,4 @@
-package androidlab2017.epam.com;
+package androidlab2017.epam.com.ui.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TimePicker;
+
+import androidlab2017.epam.com.R;
+import androidlab2017.epam.com.ui.main.MainActivity;
 
 /**
  * Created by roman on 25.5.17.
@@ -58,7 +61,7 @@ public class TimePickerDialogFragment extends DialogFragment {
         dismiss();
     }
 
-    interface OnClickOkButtonListener {
+    public interface OnClickOkButtonListener {
         void onClickOkButton(int hour, int minute);
     }
 }

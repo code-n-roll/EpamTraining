@@ -6,4 +6,10 @@
     <string name="test">test</string>
     <string name="cancel">cancel</string>
     <string name="ok">ok</string>
+    <string name="M">M</string>
+    <string name="T">T</string>
+    <string name="W">W</string>
+    <string name="F">F</string>
+    <string name="S">S</string>
+    <string name="upcoming_alarm">Upcoming alarm</string>
 </resources>

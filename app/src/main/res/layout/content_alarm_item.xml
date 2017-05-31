@@ -7,14 +7,15 @@
               android:padding="20dp">
     <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-        <DigitalClock
+        <TextView
             android:id="@+id/clock_content_alarm_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textSize="50sp"
             android:textStyle="normal"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:text="00:00"/>
 
 
         <Switch

@@ -1,1 +1,1 @@
-include ':app', ':testexpandlistview'
+include ':app', ':testexpandlistview', ':testfullscreenactivity'

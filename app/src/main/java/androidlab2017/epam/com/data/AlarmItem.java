@@ -1,4 +1,4 @@
-package androidlab2017.epam.com;
+package androidlab2017.epam.com.data;
 
 /**
  * Created by roman on 22.5.17.
