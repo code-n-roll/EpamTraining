@@ -3,8 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@android:color/black"
-    >
+              android:background="@android:color/black">
 
     <TimePicker
         android:id="@+id/timePicker"
@@ -14,8 +13,7 @@
         android:numbersInnerTextColor="@android:color/white"
         android:numbersBackgroundColor="@android:color/black"
         android:headerBackground="@android:color/black"
-        android:timePickerMode="clock"
-        />
+        android:timePickerMode="clock"/>
     <LinearLayout
         android:layout_below="@id/timePicker"
         android:layout_width="match_parent"

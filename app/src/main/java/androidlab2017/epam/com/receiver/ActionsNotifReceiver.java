@@ -7,29 +7,31 @@ import android.util.Log;
 
 import androidlab2017.epam.com.service.AlarmService;
 
+import static androidlab2017.epam.com.utils.StaticFields.DISMISS_ACTION;
+import static androidlab2017.epam.com.utils.StaticFields.MY_LOGS;
+import static androidlab2017.epam.com.utils.StaticFields.SNOOZE_ACTION;
+import static androidlab2017.epam.com.utils.StaticFields.STOP_RINGTONE;
+
 /**
  * Created by roman on 31.5.17.
  */
 
 public class ActionsNotifReceiver extends BroadcastReceiver {
-    private static final String SNOOZE_ACTION = "snooze_action";
-    private static final String DISMISS_ACTION = "dismiss_action";
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
 
         if(SNOOZE_ACTION.equals(action)) {
-            Log.d("myLogs","Pressed SNOOZE");
+            Log.d(MY_LOGS,"Pressed SNOOZE");
         } else if(DISMISS_ACTION.equals(action)) {
-
             Intent serviceIntent = new Intent(context, AlarmService.class);
-            serviceIntent.setAction("stop_ringtone");
+            serviceIntent.setAction(STOP_RINGTONE);
             context.startService(serviceIntent);
 
-
-            Log.d("myLogs","Pressed DISMISS");
+            Log.d(MY_LOGS,"Pressed DISMISS");
         }
-        Log.d("myLogs","ActionsNotifReceiver onReceive");
+        Log.d(MY_LOGS,"ActionsNotifReceiver onReceive");
     }
 }

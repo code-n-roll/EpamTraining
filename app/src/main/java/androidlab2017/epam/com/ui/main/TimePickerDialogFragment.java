@@ -10,16 +10,12 @@ import android.widget.Button;
 import android.widget.TimePicker;
 
 import androidlab2017.epam.com.R;
-import androidlab2017.epam.com.ui.main.MainActivity;
 
 /**
  * Created by roman on 25.5.17.
  */
 
 public class TimePickerDialogFragment extends DialogFragment {
-    private Button mButtonOk;
-    private Button mButtonCancel;
-    private View mView;
     private TimePicker mTimePicker;
 
     @Override
@@ -39,14 +35,14 @@ public class TimePickerDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mView = view;
+        View view1 = view;
         mTimePicker = (TimePicker) view.findViewById(R.id.timePicker);
         mTimePicker.setIs24HourView(true);
-        mButtonCancel = (Button) view.findViewById(R.id.button_cancel_time_picker);
-        mButtonOk = (Button) view.findViewById(R.id.button_ok_time_picker);
+        Button buttonCancel = (Button) view.findViewById(R.id.button_cancel_time_picker);
+        Button buttonOk = (Button) view.findViewById(R.id.button_ok_time_picker);
 
-        mButtonCancel.setOnClickListener((ignored)->clickOnCancelButton());
-        mButtonOk.setOnClickListener((ignored)->clickOnOkButton());
+        buttonCancel.setOnClickListener((ignored)->clickOnCancelButton());
+        buttonOk.setOnClickListener((ignored)->clickOnOkButton());
     }
 
     private void clickOnOkButton(){

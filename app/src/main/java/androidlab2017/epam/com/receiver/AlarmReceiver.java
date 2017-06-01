@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -16,27 +15,34 @@ import androidlab2017.epam.com.R;
 import androidlab2017.epam.com.service.AlarmService;
 import androidlab2017.epam.com.ui.main.MainActivity;
 
+import static androidlab2017.epam.com.utils.StaticFields.DATA_NOTIFICATION;
+import static androidlab2017.epam.com.utils.StaticFields.DISMISS;
+import static androidlab2017.epam.com.utils.StaticFields.DISMISS_ACTION;
+import static androidlab2017.epam.com.utils.StaticFields.IS_VIBRATE;
+import static androidlab2017.epam.com.utils.StaticFields.MY_LOGS;
+import static androidlab2017.epam.com.utils.StaticFields.PLAY_RINGTONE;
+import static androidlab2017.epam.com.utils.StaticFields.RINGTONE_URI;
+import static androidlab2017.epam.com.utils.StaticFields.SNOOZE;
+import static androidlab2017.epam.com.utils.StaticFields.SNOOZE_ACTION;
+
 /**
  * Created by roman on 25.5.17.
  */
 
 public class AlarmReceiver extends BroadcastReceiver {
-    private static final String LOG_TAG = "myLogs";
-    private static final String SNOOZE_ACTION = "snooze_action";
-    private static final String DISMISS_ACTION = "dismiss_action";
     private static final int NOTIFY_ID = 1;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d(LOG_TAG, "onReceive");
-        Log.d(LOG_TAG, "action = " + intent.getAction());
-        Log.d(LOG_TAG, "data_notif = " + intent.getStringExtra("data_notification"));
-        Log.d(LOG_TAG, "ringtone_uri = " + intent.getStringExtra("ringtone_uri"));
+        Log.d(MY_LOGS, "onReceive");
+        Log.d(MY_LOGS, "action = " + intent.getAction());
+        Log.d(MY_LOGS, "data_notif = " + intent.getStringExtra(DATA_NOTIFICATION));
+        Log.d(MY_LOGS, "ringtone_uri = " + intent.getStringExtra(RINGTONE_URI));
 
         Intent serviceIntent = new Intent(context, AlarmService.class);
-//        serviceIntent.putExtra("data_notification", intent.getStringExtra("data_notification"));
-        serviceIntent.putExtra("ringtone_uri", intent.getStringExtra("ringtone_uri"));
-        serviceIntent.setAction("play_ringtone");
+        serviceIntent.putExtra(RINGTONE_URI, intent.getStringExtra(RINGTONE_URI));
+        serviceIntent.setAction(PLAY_RINGTONE);
+        serviceIntent.putExtra(IS_VIBRATE, intent.getBooleanExtra(IS_VIBRATE, false));
         context.startService(serviceIntent);
 
         createAndStartNotifs(context, intent);
@@ -80,11 +86,11 @@ public class AlarmReceiver extends BroadcastReceiver {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(false)
                 .setContentTitle(res.getString(R.string.upcoming_alarm))
-                .setContentText(intent.getStringExtra("data_notification"))
+                .setContentText(intent.getStringExtra(DATA_NOTIFICATION))
                 .addAction(new NotificationCompat.Action(
-                        android.R.drawable.ic_dialog_alert, "SNOOZE", pendingIntentSnooze))
+                        android.R.drawable.ic_dialog_alert, SNOOZE, pendingIntentSnooze))
                 .addAction(new NotificationCompat.Action(
-                        android.R.drawable.ic_dialog_email, "DISMISS", pendingIntentDismiss));
+                        android.R.drawable.ic_dialog_email, DISMISS, pendingIntentDismiss));
 
         Notification notification = builder.build();
         NotificationManager nm = (NotificationManager)

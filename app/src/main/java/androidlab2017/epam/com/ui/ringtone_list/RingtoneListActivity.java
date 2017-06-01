@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidlab2017.epam.com.R;
+import androidlab2017.epam.com.utils.StaticFields;
 
 import static androidlab2017.epam.com.utils.MediaPlayerUtils.stopRingtone;
 
@@ -28,9 +29,7 @@ import static androidlab2017.epam.com.utils.MediaPlayerUtils.stopRingtone;
  */
 
 public class RingtoneListActivity extends AppCompatActivity {
-    private RecyclerView mRingtoneListRecycler;
     private RingtoneListAdapter mRingtoneListAdapter;
-    private ArrayList<String> mRingtoneList;
     private Map<String, Uri> mTitleUriRingtones;
     private MediaPlayer mMediaPlayer;
 
@@ -52,14 +51,14 @@ public class RingtoneListActivity extends AppCompatActivity {
         }
 
         mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
 
-        mRingtoneListRecycler = (RecyclerView) findViewById(R.id.ringtone_list);
+        RecyclerView ringtoneListRecycler = (RecyclerView) findViewById(R.id.ringtone_list);
         mRingtoneListAdapter =
                 new RingtoneListAdapter(mMediaPlayer, getRingtones(), mTitleUriRingtones);
-        mRingtoneListRecycler.setAdapter(mRingtoneListAdapter);
+        ringtoneListRecycler.setAdapter(mRingtoneListAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        mRingtoneListRecycler.setLayoutManager(layoutManager);
+        ringtoneListRecycler.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -81,7 +80,7 @@ public class RingtoneListActivity extends AppCompatActivity {
 
     private void returnResultAndCloseActivity(){
         Intent resultIntent = new Intent();
-        resultIntent.putExtra("ringtone_title", mRingtoneListAdapter.getCurRingtoneTitle());
+        resultIntent.putExtra(StaticFields.RINGTONE_TITLE, mRingtoneListAdapter.getCurRingtoneTitle());
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
@@ -90,7 +89,7 @@ public class RingtoneListActivity extends AppCompatActivity {
 
     public ArrayList<String> getRingtones() {
         RingtoneManager manager = new RingtoneManager(this);
-        manager.setType(RingtoneManager.TYPE_RINGTONE);
+        manager.setType(RingtoneManager.TYPE_ALARM);
         Cursor cursor = manager.getCursor();
 
         mTitleUriRingtones = new HashMap<>();
@@ -98,7 +97,6 @@ public class RingtoneListActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             String ringtoneTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
             Uri ringtoneUri = manager.getRingtoneUri(cursor.getPosition());
-
 
             mTitleUriRingtones.put(ringtoneTitle, ringtoneUri);
             list.add(ringtoneTitle);

@@ -12,6 +12,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,13 @@ import androidlab2017.epam.com.R;
 import androidlab2017.epam.com.ui.main.MainActivity;
 import androidlab2017.epam.com.utils.MediaPlayerUtils;
 
+import static androidlab2017.epam.com.utils.StaticFields.DATA_NOTIFICATION;
+import static androidlab2017.epam.com.utils.StaticFields.IS_VIBRATE;
+import static androidlab2017.epam.com.utils.StaticFields.MY_LOGS;
+import static androidlab2017.epam.com.utils.StaticFields.PLAY_RINGTONE;
+import static androidlab2017.epam.com.utils.StaticFields.RINGTONE_URI;
+import static androidlab2017.epam.com.utils.StaticFields.STOP_RINGTONE;
+
 /**
  * Created by roman on 31.5.17.
  */
@@ -30,7 +38,7 @@ import androidlab2017.epam.com.utils.MediaPlayerUtils;
 public class AlarmService extends Service {
     private static final int NOTIFY_ID = 1;
     private MediaPlayer mMediaPlayer;
-
+    private Vibrator mVibrator;
 
 
     @Override
@@ -38,7 +46,9 @@ public class AlarmService extends Service {
         super.onCreate();
 
         mMediaPlayer = new MediaPlayer();
-        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        mMediaPlayer.setAudioStreamType(AudioManager.STREAM_ALARM);
+
+        mVibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
@@ -47,20 +57,24 @@ public class AlarmService extends Service {
 //        createAndStartNotifs(intent);
         if (intent != null && intent.getAction() != null){
             switch (intent.getAction()) {
-                case "play_ringtone":
-                    Uri ringtoneUri = Uri.parse(intent.getStringExtra("ringtone_uri"));
+                case PLAY_RINGTONE:
+                    Uri ringtoneUri = Uri.parse(intent.getStringExtra(RINGTONE_URI));
+                    if (intent.getBooleanExtra(IS_VIBRATE,false)){
+                        mVibrator.vibrate(new long[] {200, 800}, 0);
+                    }
                     MediaPlayerUtils.playRingtone(mMediaPlayer, this, ringtoneUri);
                     break;
-                case "stop_ringtone":
+                case STOP_RINGTONE:
                     MediaPlayerUtils.stopRingtone(mMediaPlayer);
                     cancelNotif();
+                    mVibrator.cancel();
                     break;
                 default:
                     break;
             }
         }
 
-        Log.d("myLogs", "Alarm Service onStartCommand");
+        Log.d(MY_LOGS, "Alarm Service onStartCommand");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -94,7 +108,7 @@ public class AlarmService extends Service {
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setContentTitle(res.getString(R.string.upcoming_alarm))
-                .setContentText(intent.getStringExtra("data_notification"));
+                .setContentText(intent.getStringExtra(DATA_NOTIFICATION));
 
         Notification notification = builder.build();
         NotificationManager nm = (NotificationManager)

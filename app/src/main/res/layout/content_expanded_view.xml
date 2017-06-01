@@ -4,14 +4,18 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/content_expanded_view">
+
     <android.support.v7.widget.AppCompatCheckBox
         android:id="@+id/repeat_checkbox_exp_view"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:layout_marginTop="10dp"
         android:text="@string/repeat"
         android:textColor="@android:color/white"
-        app:buttonTint="@android:color/white"/>
+        app:buttonTint="@android:color/white"
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:id="@+id/days_of_week"
@@ -19,43 +23,71 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:animateLayoutChanges="true"
+        android:layout_marginBottom="10dp">
         <ToggleButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:textOff="@string/M"
             android:textOn="@string/M"
+            android:background="@drawable/btn_custom_bg"
+            android:textColor="@drawable/btn_custom_text_color"
             />
         <ToggleButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:textOff="@string/T"
-            android:textOn="@string/T"/>
+            android:textOn="@string/T"
+            android:background="@drawable/btn_custom_bg"
+            android:textColor="@drawable/btn_custom_text_color"/>
         <ToggleButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:textOff="@string/W"
-            android:textOn="@string/W"/>
+            android:textOn="@string/W"
+            android:background="@drawable/btn_custom_bg"
+            android:textColor="@drawable/btn_custom_text_color"/>
         <ToggleButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:textOff="@string/T"
-            android:textOn="@string/T"/>
+            android:textOn="@string/T"
+            android:background="@drawable/btn_custom_bg"
+            android:textColor="@drawable/btn_custom_text_color"/>
         <ToggleButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:textOff="@string/F"
-            android:textOn="@string/F"/>
+            android:textOn="@string/F"
+            android:background="@drawable/btn_custom_bg"
+            android:textColor="@drawable/btn_custom_text_color"/>
         <ToggleButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginEnd="20dp"
             android:textOff="@string/S"
-            android:textOn="@string/S"/>
+            android:textOn="@string/S"
+            android:background="@drawable/btn_custom_bg"
+            android:textColor="@drawable/btn_custom_text_color"/>
         <ToggleButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:textOff="@string/S"
-            android:textOn="@string/S"/>
+            android:textOn="@string/S"
+            android:background="@drawable/btn_custom_bg"
+            android:textColor="@drawable/btn_custom_text_color"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -69,22 +101,25 @@
             android:id="@+id/name_alarm_ringtone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="choose ringtone"
+            android:text="@string/choose_ringtone"
+            android:textAllCaps="false"
             android:gravity="center_vertical"
             android:layout_gravity="start"
             android:textColor="@android:color/white"
             android:drawableStart="@android:drawable/ic_menu_save"
             android:drawableLeft="@android:drawable/ic_menu_save"
             android:background="@android:color/transparent"/>
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/vibrate_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/vibrate"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:textColor="@android:color/white"
-            app:buttonTint="@android:color/white"/>
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/vibrate_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vibrate"
+                android:layout_gravity="center_vertical"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="@android:color/white"
+                app:buttonTint="@android:color/white"/>
     </RelativeLayout>
 
     <TextView
@@ -92,6 +127,7 @@
         android:layout_below="@id/container_bell_vibrate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="@string/test"
         android:gravity="center_vertical"
         android:textColor="@android:color/white"
@@ -101,6 +137,7 @@
         android:layout_below="@id/label_textview"
         android:id="@+id/divider_view"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="0.8dp"
         android:background="@color/divider"/>
+
 </RelativeLayout>
