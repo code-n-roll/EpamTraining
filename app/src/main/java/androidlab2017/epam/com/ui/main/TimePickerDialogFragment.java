@@ -9,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TimePicker;
 
-import java.util.Locale;
-
 import androidlab2017.epam.com.R;
 
 import static androidlab2017.epam.com.utils.StaticFields.CALLED_FROM;

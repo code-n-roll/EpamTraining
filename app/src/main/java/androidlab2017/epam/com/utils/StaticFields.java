@@ -20,4 +20,6 @@ public class StaticFields {
     public static final String CLICK_ON_FAB = "click_on_fab";
     public static final String CLICK_ON_TEXTCLOCK = "click_on_textclock";
     public static final String CUR_TIME_ALARM = "cur_time_alarm";
+    public static final String TP_DIALOG = "time_picker_dialog_fragment";
+    public static final int PICK_RINGTONE_REQUEST = 1;
 }

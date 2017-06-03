@@ -40,7 +40,9 @@ import static androidlab2017.epam.com.utils.StaticFields.CUR_TIME_ALARM;
 import static androidlab2017.epam.com.utils.StaticFields.DATA_NOTIFICATION;
 import static androidlab2017.epam.com.utils.StaticFields.IS_VIBRATE;
 import static androidlab2017.epam.com.utils.StaticFields.MY_LOGS;
+import static androidlab2017.epam.com.utils.StaticFields.PICK_RINGTONE_REQUEST;
 import static androidlab2017.epam.com.utils.StaticFields.RINGTONE_URI;
+import static androidlab2017.epam.com.utils.StaticFields.TP_DIALOG;
 
 /**
  * Created by roman on 22.5.17.
@@ -48,8 +50,6 @@ import static androidlab2017.epam.com.utils.StaticFields.RINGTONE_URI;
 
 public class AlarmItemListAdapter extends
         RecyclerView.Adapter<AlarmItemListAdapter.ViewHolder> {
-    private static final int PICK_RINGTONE_REQUEST = 1;
-
     private ArrayList<AlarmItem> mAlarmItems;
     private ViewHolder mViewHolder;
     private TextView mCurTimeAlarm;
@@ -60,10 +60,6 @@ public class AlarmItemListAdapter extends
 
     public TextView getCurTimeAlarm() {
         return mCurTimeAlarm;
-    }
-
-    public void setCurTimeAlarm(TextView curTimeAlarm) {
-        mCurTimeAlarm = curTimeAlarm;
     }
 
     public ViewHolder getViewHolder() {
@@ -329,13 +325,6 @@ public class AlarmItemListAdapter extends
             Snackbar.make(mView,"Alarm set for "+info+" from now.",Snackbar.LENGTH_SHORT).show();
         }
 
-        private Intent createIntent(String action, String extra){
-            Intent intent = new Intent(mMainActivity, AlarmReceiver.class);
-            intent.setAction(action);
-            intent.putExtra("extra", extra);
-            return intent;
-        }
-
         private void removeAlarm(){
             mAlarmManager.cancel(mPendingIntent);
         }
@@ -442,7 +431,7 @@ public class AlarmItemListAdapter extends
         sharedData.putString(CALLED_FROM, CLICK_ON_TEXTCLOCK);
         sharedData.putString(CUR_TIME_ALARM, mCurTimeAlarm.getText().toString());
         tpDialog.setArguments(sharedData);
-        tpDialog.show(activity.getSupportFragmentManager(), "dialog");
+        tpDialog.show(activity.getSupportFragmentManager(), TP_DIALOG);
     }
 }
 

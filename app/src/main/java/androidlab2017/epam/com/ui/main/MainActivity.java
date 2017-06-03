@@ -25,12 +25,12 @@ import androidlab2017.epam.com.data.AlarmItem;
 import static androidlab2017.epam.com.utils.StaticFields.CALLED_FROM;
 import static androidlab2017.epam.com.utils.StaticFields.CLICK_ON_FAB;
 import static androidlab2017.epam.com.utils.StaticFields.CLICK_ON_TEXTCLOCK;
+import static androidlab2017.epam.com.utils.StaticFields.PICK_RINGTONE_REQUEST;
 import static androidlab2017.epam.com.utils.StaticFields.RINGTONE_TITLE;
+import static androidlab2017.epam.com.utils.StaticFields.TP_DIALOG;
 
 public class MainActivity extends AppCompatActivity implements
         TimePickerDialogFragment.OnClickOkButtonListener{
-    private static final int PICK_RINGTONE_REQUEST = 1;
-
     private AlarmItemListAdapter mAlarmItemsAdapter;
     private AlarmManager mAlarmManager;
     private ArrayList<AlarmItem> mAlarmItems;
@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements
                         data.getStringExtra(RINGTONE_TITLE));
             }
         }
-
     }
 
     @Override
@@ -92,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
         sharedData.putString(CALLED_FROM, CLICK_ON_FAB);
         tpDialog.setArguments(sharedData);
 
-        tpDialog.show(getSupportFragmentManager(), "dialog");
+        tpDialog.show(getSupportFragmentManager(), TP_DIALOG);
 
         Snackbar.make(view, "Replace with your own action",
                 Snackbar.LENGTH_LONG)
