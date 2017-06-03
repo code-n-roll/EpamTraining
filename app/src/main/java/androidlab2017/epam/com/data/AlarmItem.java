@@ -9,7 +9,8 @@ public class AlarmItem {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 
-    private CharSequence mTime;
+
+    private String mTime;
     private boolean mIsSet;
     private boolean mIsRepeat;
     private boolean mIsVibrate;
@@ -18,7 +19,7 @@ public class AlarmItem {
     private String mDaysOfWeek;
 
 
-    public AlarmItem(CharSequence time,
+    public AlarmItem(String time,
                      boolean isSet,
                      boolean isRepeat,
                      boolean isVibrate,
@@ -32,5 +33,9 @@ public class AlarmItem {
         mLabel = label;
         mAudioResource = audioResource;
         mDaysOfWeek = daysOfWeek;
+    }
+
+    public String getTime() {
+        return mTime;
     }
 }

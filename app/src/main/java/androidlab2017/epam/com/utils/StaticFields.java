@@ -16,4 +16,8 @@ public class StaticFields {
     public static final String SNOOZE_ACTION = "snooze_action";
     public static final String DISMISS_ACTION = "dismiss_action";
     public static final String MY_LOGS = "myLogs";
+    public static final String CALLED_FROM = "called_from";
+    public static final String CLICK_ON_FAB = "click_on_fab";
+    public static final String CLICK_ON_TEXTCLOCK = "click_on_textclock";
+    public static final String CUR_TIME_ALARM = "cur_time_alarm";
 }

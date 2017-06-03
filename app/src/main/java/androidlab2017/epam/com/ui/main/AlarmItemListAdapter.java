@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.support.design.widget.Snackbar;
@@ -33,6 +34,9 @@ import androidlab2017.epam.com.receiver.AlarmReceiver;
 import androidlab2017.epam.com.service.AlarmService;
 import androidlab2017.epam.com.ui.ringtone_list.RingtoneListActivity;
 
+import static androidlab2017.epam.com.utils.StaticFields.CALLED_FROM;
+import static androidlab2017.epam.com.utils.StaticFields.CLICK_ON_TEXTCLOCK;
+import static androidlab2017.epam.com.utils.StaticFields.CUR_TIME_ALARM;
 import static androidlab2017.epam.com.utils.StaticFields.DATA_NOTIFICATION;
 import static androidlab2017.epam.com.utils.StaticFields.IS_VIBRATE;
 import static androidlab2017.epam.com.utils.StaticFields.MY_LOGS;
@@ -58,6 +62,9 @@ public class AlarmItemListAdapter extends
         return mCurTimeAlarm;
     }
 
+    public void setCurTimeAlarm(TextView curTimeAlarm) {
+        mCurTimeAlarm = curTimeAlarm;
+    }
 
     public ViewHolder getViewHolder() {
         return mViewHolder;
@@ -397,9 +404,6 @@ public class AlarmItemListAdapter extends
             }
 
             mPendingIntent = PendingIntent.getBroadcast(mMainActivity, 0, intent, 0);
-
-
-
             long alarmTime = getMillisecFromFormat24Time();
 
             if (mRepeatCheckBox.isChecked()){
@@ -411,29 +415,33 @@ public class AlarmItemListAdapter extends
                         SystemClock.elapsedRealtime() + alarmTime, mPendingIntent);
             }
 
-
-
             Log.d(MY_LOGS, "start " + alarmTime + " ms");
         }
 
         public void bind(final AlarmItem alarmItem){
-            mTimeAlarm.setText("12:50");
+            mTimeAlarm.setText(alarmItem.getTime());
         }
 
         @Override
         public void onClickOkButton(int hour, int minute) {
             TextView timeAlarm = getCurTimeAlarm();
-            timeAlarm.setText(
-                    String.format(Locale.getDefault(), "%2d:%2d", hour, minute).replace(' ', '0')
-            );
+            if (timeAlarm != null) {
+                timeAlarm.setText(
+                        String.format(Locale.getDefault(), "%2d:%2d", hour, minute).replace(' ', '0')
+                );
+            }
         }
     }
 
-    private void clickOnTextClock(View view){
+    public void clickOnTextClock(View view){
         mCurTimeAlarm = (TextView) view;
         TimePickerDialogFragment tpDialog = new TimePickerDialogFragment();
         MainActivity activity = (MainActivity)view.getContext();
 
+        Bundle sharedData = new Bundle();
+        sharedData.putString(CALLED_FROM, CLICK_ON_TEXTCLOCK);
+        sharedData.putString(CUR_TIME_ALARM, mCurTimeAlarm.getText().toString());
+        tpDialog.setArguments(sharedData);
         tpDialog.show(activity.getSupportFragmentManager(), "dialog");
     }
 }

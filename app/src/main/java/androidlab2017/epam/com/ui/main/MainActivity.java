@@ -12,20 +12,30 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import androidlab2017.epam.com.R;
 import androidlab2017.epam.com.data.AlarmItem;
 
+import static androidlab2017.epam.com.utils.StaticFields.CALLED_FROM;
+import static androidlab2017.epam.com.utils.StaticFields.CLICK_ON_FAB;
+import static androidlab2017.epam.com.utils.StaticFields.CLICK_ON_TEXTCLOCK;
 import static androidlab2017.epam.com.utils.StaticFields.RINGTONE_TITLE;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+        TimePickerDialogFragment.OnClickOkButtonListener{
     private static final int PICK_RINGTONE_REQUEST = 1;
 
     private AlarmItemListAdapter mAlarmItemsAdapter;
     private AlarmManager mAlarmManager;
+    private ArrayList<AlarmItem> mAlarmItems;
+    private RecyclerView mAlarmItemsRecycler;
+    private String mTime = "";
 
     public AlarmManager getAlarmManager() {
         return mAlarmManager;
@@ -54,28 +64,41 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
+        fab.setOnClickListener(view -> clickOnFAButton(view));
 
-        RecyclerView alarmItemsRecycler = (RecyclerView) findViewById(R.id.recycler_view_alarm_items);
+        mAlarmItemsRecycler = (RecyclerView) findViewById(R.id.recycler_view_alarm_items);
 
-        ArrayList<AlarmItem> alarmItems = new ArrayList<>();
-        for (int i = 0; i < 5; i++){
-            alarmItems.add(new AlarmItem("",false, false, true, "", "", ""));
-        }
+        mAlarmItems = new ArrayList<>();
+//        for (int i = 0; i < 5; i++){
+//            mAlarmItems.add(new AlarmItem("",false, false, true, "", "", ""));
+//        }
 
-        mAlarmItemsAdapter = new AlarmItemListAdapter(alarmItems);
+        mAlarmItemsAdapter = new AlarmItemListAdapter(mAlarmItems);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        alarmItemsRecycler.setLayoutManager(layoutManager);
-        alarmItemsRecycler.setAdapter(mAlarmItemsAdapter);
+        mAlarmItemsRecycler.setLayoutManager(layoutManager);
+        mAlarmItemsRecycler.setAdapter(mAlarmItemsAdapter);
 
-        DividerItemDecoration divider = new DividerItemDecoration(alarmItemsRecycler.getContext(),
+        DividerItemDecoration divider = new DividerItemDecoration(mAlarmItemsRecycler.getContext(),
                 LinearLayout.VERTICAL);
-        alarmItemsRecycler.addItemDecoration(divider);
+        mAlarmItemsRecycler.addItemDecoration(divider);
 
         mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
     }
 
+    private void clickOnFAButton(View view){
+        TimePickerDialogFragment tpDialog = new TimePickerDialogFragment();
+        Bundle sharedData = new Bundle();
+
+        sharedData.putString(CALLED_FROM, CLICK_ON_FAB);
+        tpDialog.setArguments(sharedData);
+
+        tpDialog.show(getSupportFragmentManager(), "dialog");
+
+        Snackbar.make(view, "Replace with your own action",
+                Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show();
+    }
 
 
     @Override
@@ -98,5 +121,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClickOkButton(int hour, int minute) {
+        mTime = String.format(Locale.getDefault(), "%2d:%2d", hour, minute).replace(' ', '0');
+        mAlarmItems.add(new AlarmItem(mTime, false, false, true, "", "", ""));
+        mAlarmItemsAdapter.notifyItemChanged(mAlarmItemsAdapter.getItemCount()-1);
     }
 }

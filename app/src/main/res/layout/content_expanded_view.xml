@@ -35,7 +35,7 @@
             android:textOn="@string/M"
             android:background="@drawable/btn_custom_bg"
             android:textColor="@drawable/btn_custom_text_color"
-            />
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -44,7 +44,8 @@
             android:textOff="@string/T"
             android:textOn="@string/T"
             android:background="@drawable/btn_custom_bg"
-            android:textColor="@drawable/btn_custom_text_color"/>
+            android:textColor="@drawable/btn_custom_text_color"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -53,7 +54,8 @@
             android:textOff="@string/W"
             android:textOn="@string/W"
             android:background="@drawable/btn_custom_bg"
-            android:textColor="@drawable/btn_custom_text_color"/>
+            android:textColor="@drawable/btn_custom_text_color"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -62,7 +64,8 @@
             android:textOff="@string/T"
             android:textOn="@string/T"
             android:background="@drawable/btn_custom_bg"
-            android:textColor="@drawable/btn_custom_text_color"/>
+            android:textColor="@drawable/btn_custom_text_color"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -71,7 +74,8 @@
             android:textOff="@string/F"
             android:textOn="@string/F"
             android:background="@drawable/btn_custom_bg"
-            android:textColor="@drawable/btn_custom_text_color"/>
+            android:textColor="@drawable/btn_custom_text_color"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -80,14 +84,16 @@
             android:textOff="@string/S"
             android:textOn="@string/S"
             android:background="@drawable/btn_custom_bg"
-            android:textColor="@drawable/btn_custom_text_color"/>
+            android:textColor="@drawable/btn_custom_text_color"
+            android:checked="true"/>
         <ToggleButton
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:textOff="@string/S"
             android:textOn="@string/S"
             android:background="@drawable/btn_custom_bg"
-            android:textColor="@drawable/btn_custom_text_color"/>
+            android:textColor="@drawable/btn_custom_text_color"
+            android:checked="true"/>
     </LinearLayout>
 
     <RelativeLayout
